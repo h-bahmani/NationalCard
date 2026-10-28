@@ -1,0 +1,11 @@
+streamlit>=1.56,<2
+Pillow>=11.3,<13
+requests>=2.32,<3
+numpy>=1.26,<2.3
+opencv-python-headless>=4.10,<5
+onnxruntime>=1.18,<2
+python-dotenv>=1.0,<2
+pillow-heif>=0.22,<2
+fastapi>=0.115,<1
+uvicorn[standard]>=0.34,<1
+python-multipart>=0.0.20,<1

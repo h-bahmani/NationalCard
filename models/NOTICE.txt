@@ -1,0 +1,21 @@
+Bundled Persian CRNN model converted to ONNX from hezarai/crnn-base-fa-v2.
+Upstream: https://huggingface.co/hezarai/crnn-base-fa-v2
+Hezar AI, https://github.com/hezarai/hezar
+Model card declares Apache-2.0. License included.
+Modification: inference graph converted to ONNX; weights not retrained.
+This model is an OCR recognizer, not identity/authenticity verification.
+Compact distribution: model stored with float16 weights, float32 inputs/outputs and LogSoftmax; original network, no retraining.
+
+Text localization model (no text recognition): ch_PP-OCRv4_det_infer.onnx.
+Upstream: PaddlePaddle/PaddleOCR, distributed by RapidAI/RapidOCR.
+Source: https://huggingface.co/spaces/RapidAI/RapidOCR/resolve/main/models/text_det/ch_PP-OCRv4_det_infer.onnx
+PaddleOCR model weights: Apache-2.0; RapidOCR conversion: Apache-2.0.
+Original ONNX weights unchanged. This detector locates text, not Iranian ID cards.
+Postprocessing and template-row assignment implemented in text_detector.py.
+
+Additional Arabic/Persian name recognizer: arabic_PP-OCRv3_mobile_rec.
+Upstream weights: PaddlePaddle/PaddleOCR (Baidu and PaddleOCR authors), Apache-2.0.
+ONNX conversion: https://huggingface.co/monkt/paddleocr-onnx (Apache-2.0 model card).
+Source and SHA256 in paddle_names_info.json. Original ONNX weights unchanged.
+Character dictionary from languages/arabic/dict.txt in the same distribution.
+The new recognizer is used only for name comparison, not number reading or identity verification.

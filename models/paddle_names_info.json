@@ -1,0 +1,13 @@
+{
+  "model": "arabic_PP-OCRv3_mobile_rec",
+  "upstream": "PaddlePaddle/PaddleOCR",
+  "conversion": "monkt/paddleocr-onnx",
+  "source": "https://huggingface.co/monkt/paddleocr-onnx/resolve/main/languages/arabic/rec.onnx",
+  "sha256": "7982d371612785238fd99080cff36354deaec84fdc6ff7da9c82af4243fa0c9a",
+  "bytes": 8978664,
+  "license": "Apache-2.0",
+  "weights_modified": false,
+  "use": "names only; numbers and dates remain Hezar",
+  "input_height": 48,
+  "classes": 163
+}

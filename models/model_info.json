@@ -1,0 +1,17 @@
+{
+  "source": "https://huggingface.co/hezarai/crnn-base-fa-v2",
+  "revision": "543881fc1d4eb8e409f7351466eecb0370af3fd0",
+  "license": "Apache-2.0",
+  "format": "ONNX",
+  "sha256": "f3d4c316c9218e847a1c92607a0aea6a4e3ea5bb6faf736dfde06efcfe8a3f25",
+  "preprocessing": {
+    "gray": true,
+    "mirror": true,
+    "width": 384,
+    "height": 32,
+    "mean": 0.6595,
+    "std": 0.1501
+  },
+  "modified": "Inference graph converted to ONNX and float16 storage; not retrained.",
+  "storage": "FP16 weights; float32 input/output; LogSoftmax retained as FP32"
+}

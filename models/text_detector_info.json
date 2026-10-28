@@ -1,0 +1,11 @@
+{
+  "model": "ch_PP-OCRv4_det_infer",
+  "task": "text_detection_not_document_classification",
+  "upstream": "PaddlePaddle/PaddleOCR",
+  "conversion": "RapidAI/RapidOCR",
+  "url": "https://huggingface.co/spaces/RapidAI/RapidOCR/resolve/main/models/text_det/ch_PP-OCRv4_det_infer.onnx",
+  "sha256": "d2a7720d45a54257208b1e13e36a8479894cb74155a5efe29462512d42f49da9",
+  "bytes": 4745517,
+  "license": "Apache-2.0",
+  "weights_modified": false
+}

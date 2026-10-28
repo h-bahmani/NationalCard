@@ -228,3 +228,5 @@ debug/
 *.jsonl
 
 tests/
+
+assets/

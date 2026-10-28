@@ -656,15 +656,72 @@ def mark_multiple_cards(image, detection):
     return detection
 
 
+# def detect_card(image:Image.Image, progress=None, search_budget=60.0):
+#     finding, aligned, roi = _detect_card_single(
+#         image,
+#         progress=progress,
+#         search_budget=search_budget
+#     )
+
 def detect_card(image:Image.Image, progress=None, search_budget=60.0):
     finding, aligned, roi = _detect_card_single(
-    image,
-    progress=progress,
-    search_budget=search_budget
-)
+        image,
+        progress=progress,
+        search_budget=search_budget
+    )
+
     mark_multiple_cards(image, finding)
+
     return finding, aligned, roi
 
+
+    mark_multiple_cards(image, finding)
+
+    # When more than one card is visible, re-evaluate both candidates
+    # and use the strongest rectified card for OCR.
+    if finding.get('multiple_cards') and finding.get('card_candidates'):
+        best = None
+
+        for candidate in finding['card_candidates']:
+            box = candidate.get('box')
+            if not box:
+                continue
+
+            l, t, r, b = box
+            pixel_box = (
+                l * image.width,
+                t * image.height,
+                r * image.width,
+                b * image.height,
+            )
+
+            result, candidate_aligned, candidate_roi = _detect_zoomed_crop(
+                image,
+                pixel_box,
+                _mirror_retry=True
+            )
+
+            if result is None or candidate_aligned is None:
+                continue
+
+            inliers = float(result.get('inliers', 0))
+            matches = max(1.0, float(result.get('matches', 1)))
+            coverage = float(result.get('reference_coverage', 0))
+            score = (inliers / matches) + coverage
+
+            if best is None or score > best[0]:
+                best = (score, result, candidate_aligned, candidate_roi)
+
+        if best is not None:
+            _, selected, selected_aligned, selected_roi = best
+            selected['multiple_cards'] = True
+            selected['card_candidates'] = finding['card_candidates']
+            selected['selected_from_multiple_cards'] = True
+            finding = selected
+            aligned = selected_aligned
+            roi = selected_roi
+
+    return finding, aligned, roi
 
 def number_crop(aligned,kind):
     return number_region(aligned,kind)[0]

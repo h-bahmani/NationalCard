@@ -40,6 +40,10 @@ def prepare(image:Image.Image, progress=None, search_budget=60.0)->PreparedCard:
         search_budget=search_budget
     )
     decision=assess_image(image,detection,aligned)
+    if detection.get('multiple_cards') and detection.get('detected') and aligned is not None:
+        decision['allowed'] = True
+        decision['status'] = 'review'
+        decision['message'] = 'Multiple card candidates detected; OCR will run on the primary detected card.'
     if decision['status']=='not_detected':
         from detector import suggest_card_crop
         _,quad=suggest_card_crop(image)
@@ -89,6 +93,8 @@ def prepare(image:Image.Image, progress=None, search_budget=60.0)->PreparedCard:
                 decision.update({'status':'candidate','allowed':False,'title':'نوع کارت تأیید نشد',
                     'message':'این کادر فقط یک پیشنهاد است. اگر کارت ملی در عکس است، محدودهٔ کامل آن را انتخاب کن.',
                     'evidence':{**(decision.get('evidence') or {}),'ocr_candidate':True,'card_type_verified':False}})
+    if aligned is not None:
+        aligned.save("DEBUG_EXACT_OCR_INPUT.png")                
     if decision['allowed'] and aligned is not None:
         try:
             from text_detector import field_regions

@@ -252,13 +252,17 @@ def _safe_views(reader, views):
 def run(path, readers=None, progress=None):
     from PIL import Image
     from persian_reader import PersianReader
-    from names_reader import NamesReader
-    from ocr_ensemble import build_optional_readers
+    # from names_reader import NamesReader
+    # from ocr_ensemble import build_optional_readers
 
     if readers is None:
+        # reader = PersianReader()
+        # names_reader = NamesReader()
+        # optional_readers, optional_errors = build_optional_readers()
         reader = PersianReader()
-        names_reader = NamesReader()
-        optional_readers, optional_errors = build_optional_readers()
+        names_reader = None
+        optional_readers = []
+        optional_errors = {}
     else:
         reader,names_reader,optional_readers,optional_errors=readers
     image = Image.open(path).convert("RGB")
@@ -354,9 +358,10 @@ def run(path, readers=None, progress=None):
             engine_readings["persian_crnn"] = [text for text, _ in legacy]
             engine_scores["persian_crnn"] = [score for _, score in legacy]
             if name in TEXT_FIELDS:
-                secondary = prepared_names if prepared_names is not None else [names_reader.read_scored(v) for v in variants[:2]]
-                engine_readings["paddle_names"] = [text for text, _ in secondary]
-                engine_scores["paddle_names"] = [score for _, score in secondary]
+                # secondary = prepared_names if prepared_names is not None else [names_reader.read_scored(v) for v in variants[:2]]
+                secondary = []
+                # engine_readings["paddle_names"] = [text for text, _ in secondary]
+                # engine_scores["paddle_names"] = [score for _, score in secondary]
 
         text, ambiguous, votes, engine_evidence, source = select_engine_consensus(
             engine_readings, engine_scores, name

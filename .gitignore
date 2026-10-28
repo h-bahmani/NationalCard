@@ -146,8 +146,6 @@ requirements-accuracy.txt
 requirements-dev.txt
 requirements-py313.txt
 
-cardreader_cli.py
-RUN_CARDREADER_CLI.bat
 
 CardReader_All_English_Terminal_Patch_FIXED/
 CardReader_CLI_Output_Patch_v2/
@@ -199,8 +197,6 @@ evidence_ui.py
 ui_state.py
 main.py
 
-cardreader_cli.py
-RUN_CARDREADER_CLI.bat
 RUN_CARDREADER.bat
 RUN_NOW.bat
 RUN_SERVICE.bat
@@ -230,3 +226,5 @@ debug/
 *.bak
 *.log
 *.jsonl
+
+tests/
